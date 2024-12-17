@@ -1,19 +1,23 @@
 import os
 import pickle
-from django.conf import settings
 import requests
 import joblib
-url="https://github.com/abhaykoka/sentiment_app/blob/main/ml_Models/sentiment_model.pkl"
+
+# URL to the raw model file on GitHub
+url = "https://raw.githubusercontent.com/abhaykoka/sentiment_app/main/ml_Models/sentiment_model.pkl"
+
+# Download the model file
 response = requests.get(url)
+model_file_path = "sentiment_model.pkl"
 
-with open("model_file.pkl", "wb") as f:
+with open(model_file_path, "wb") as f:
     f.write(response.content)
-model = joblib.load("model_file.pkl")
-MODEL_PATH = os.path.join("ml_Models\\sentiment_model.pkl")
 
-with open(MODEL_PATH, 'rb') as f:
+# Load the model and vectorizer
+with open(model_file_path, 'rb') as f:
     vectorizer, model = pickle.load(f)
 
+# Function to classify sentiment
 def classify_sentiment(text):
-    X = vectorizer.transform([text])
-    return model.predict(X)[0]
+    X = vectorizer.transform([text])  # Transform the input text
+    return model.predict(X)[0] 

@@ -2,7 +2,7 @@ import os
 import pickle
 from django.conf import settings
 
-MODEL_PATH = os.path.join("C:\\Users\\PJRao\\Desktop\\DjangoProjects\\sentiment_app\\ml_Models\\sentiment_model.pkl")
+MODEL_PATH = os.path.join("ml_Models\\sentiment_model.pkl")
 
 with open(MODEL_PATH, 'rb') as f:
     vectorizer, model = pickle.load(f)
